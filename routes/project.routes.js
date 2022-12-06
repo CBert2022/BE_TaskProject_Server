@@ -14,7 +14,7 @@ router.get("/", (req, res, next) => {
   });
 
   /////////// CREATE A PROJECT ON INDEX //////////////
-
+//
 router.get("/projects", (req,res) => res.json("message"))
 
 router.post("/projects", (req, res, next) => {
