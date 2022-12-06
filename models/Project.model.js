@@ -3,7 +3,7 @@ const { Schema, model } = mongoose;
 
 const projectSchema = new Schema({
 title: {
-    title: String,
+    type: String,
     required: true,
 },
 description: String,
