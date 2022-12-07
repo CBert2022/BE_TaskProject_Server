@@ -14,16 +14,6 @@ router.get('/projects/', (req, res, next) => {
 
   });
 
-  /////////// GET PROJECT CREATED BY USER //////////////
-
-  router.get('/projects', (req, res, next) => {
-  Project.findById(projectId)
-    .populate('tasks')
-    .then(project => res.status(200).json(project))
-    .catch(error => res.json(error));
-});
- 
-
   /////////// CREATE A PROJECT ON INDEX //////////////
 
 router.post("/projects", (req, res, next) => {
@@ -33,6 +23,21 @@ router.post("/projects", (req, res, next) => {
         .then((response) => res.json(response))
         .catch((err) => res.json(err));
     });
+
+      //////////// DELETE PROJECT ///////////
+
+  router.post("/projects/:id/delete", (req, res, next)=>{
+    const id = req.params.id
+    console.log(id)
+    Project.findByIdAndRemove(id)
+    .then((deletedTProject) =>{
+        console.log("MADE IT", deletedTProject)
+    })
+    .catch((err) =>{
+        console.log(err)
+    }) 
+
+})
 
    
 

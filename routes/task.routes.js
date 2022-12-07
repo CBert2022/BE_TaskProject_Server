@@ -23,7 +23,7 @@ router.post("/tasks", (req, res, next) => {
       .catch((err) => res.json(err));
   });
 
-  //////////// N E W   T A S K ///////////
+  //////////// DELETE  T A S K ///////////
 
   router.post("/tasks/:id/delete", (req, res, next)=>{
     const id = req.params.id
