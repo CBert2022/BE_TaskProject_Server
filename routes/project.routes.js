@@ -5,17 +5,26 @@ const Project = require("../models/Project.model");
 
 /////////// GET ALL PROJECT ON INDEX //////////////
 
-router.get("/", (req, res, next) => {
+router.get('/projects/', (req, res, next) => {
     Project.find()
-    .then(allProjects => {
-        res.json(allProjects)
-    })
-    .catch(error => console.log('error!!! YOU SUCK INDEX'));
+      .populate('tasks')
+      .then(allProjects => res.json(allProjects))
+      .catch(err => res.json(err));
+
+
   });
 
+  /////////// GET PROJECT CREATED BY USER //////////////
+
+  router.get('/projects', (req, res, next) => {
+  Project.findById(projectId)
+    .populate('tasks')
+    .then(project => res.status(200).json(project))
+    .catch(error => res.json(error));
+});
+ 
+
   /////////// CREATE A PROJECT ON INDEX //////////////
-//
-router.get("/projects", (req,res) => res.json("message"))
 
 router.post("/projects", (req, res, next) => {
     const { title, description} = req.body;
@@ -24,6 +33,8 @@ router.post("/projects", (req, res, next) => {
         .then((response) => res.json(response))
         .catch((err) => res.json(err));
     });
+
+   
 
 
 module.exports = router;

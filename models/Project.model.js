@@ -7,7 +7,8 @@ title: {
     required: true,
 },
 description: String,
-createdBy: { type: Schema.Types.ObjectId, ref: "User" }
+createdBy: { type: Schema.Types.ObjectId, ref: "User" },
+tasks: [{ type: Schema.Types.ObjectId, ref: "Task" }],
 });
 
 module.exports = model("Project", projectSchema);
