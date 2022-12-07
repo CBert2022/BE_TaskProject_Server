@@ -11,7 +11,6 @@ const Project = require("../models/Project.model");
 
   router.get('/tasks', (req, res, next) => {
     Task.find()
-      .populate('tasks')
       .then(allTasks => res.json(allTasks))
       .catch(err => res.json(err));
 
