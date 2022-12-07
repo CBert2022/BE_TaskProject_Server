@@ -10,6 +10,7 @@ const taskSchema = new Schema(
     description: String,
     dueDate: Date,
     project: { type: Schema.Types.ObjectId, ref: "Project" },
+    important: Boolean,
   },
   {
     timestamps: true,
