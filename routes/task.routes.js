@@ -5,6 +5,18 @@ const User = require("../models/User.model");
 const Task = require("../models/Task.model") 
 const Project = require("../models/Project.model");
 
+  //////////// A L L   T A S K ///////////
+
+// Get route ==> render all tasks
+
+  router.get('/tasks', (req, res, next) => {
+    Task.find()
+      .populate('tasks')
+      .then(allTasks => res.json(allTasks))
+      .catch(err => res.json(err));
+
+  });
+
   //////////// N E W   T A S K ///////////
 
 // Post route ==> create new task
@@ -23,7 +35,7 @@ router.post("/tasks", (req, res, next) => {
       .catch((err) => res.json(err));
   });
 
-  //////////// DELETE  T A S K ///////////
+  //////////// D E L E T E  T A S K ///////////
 
   router.post("/tasks/:id/delete", (req, res, next)=>{
     const id = req.params.id
