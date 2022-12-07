@@ -16,12 +16,20 @@ router.get('/projects/', (req, res, next) => {
 
   /////////// CREATE A PROJECT ON INDEX //////////////
 
-router.post("/projects", (req, res, next) => {
-    const { title, description} = req.body;
-    console.log(req.body);
-    Project.create({ title, description })
-        .then((response) => res.json(response))
-        .catch((err) => res.json(err));
+// router.post("/projects", (req, res, next) => {
+//     const { title, description} = req.body;
+//     console.log(req.body);
+//     Project.create({ title, description })
+//         .then((response) => res.json(response))
+//         .catch((err) => res.json(err));
+//     });
+
+    router.post('/projects', (req, res, next) => {
+      const { title, description } = req.body;
+     
+      Project.create({ title, description, tasks: [] })
+        .then(response => res.json(response))
+        .catch(err => res.json(err));
     });
 
       //////////// DELETE PROJECT ///////////
