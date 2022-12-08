@@ -38,8 +38,9 @@ router.get('/projects/', (req, res, next) => {
     const id = req.params.id
     console.log(id)
     Project.findByIdAndRemove(id)
-    .then((deletedTProject) =>{
-        console.log("MADE IT", deletedTProject)
+    .then((deletedProject) =>{
+        console.log("MADE IT", deletedProject)
+        res.status(200).json(deletedProject)
     })
     .catch((err) =>{
         console.log(err)
