@@ -42,6 +42,7 @@ router.post("/tasks", (req, res, next) => {
     Task.findByIdAndRemove(id)
     .then((deletedTask) =>{
         console.log("MADE IT", deletedTask)
+        res.status(200).json(deletedTask)
     })
     .catch((err) =>{
         console.log(err)
