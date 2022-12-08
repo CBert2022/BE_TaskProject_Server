@@ -26,9 +26,9 @@ router.get('/projects/', (req, res, next) => {
 //     });
 
     router.post('/projects', (req, res, next) => {
-      const { title, description } = req.body;
+      const { title, description, createdBy } = req.body;
      
-      Project.create({ title, description, tasks: [] })
+      Project.create({ title, description,createdBy,tasks: [] })
         .then(response => res.json(response))
         .catch(err => res.json(err));
     });
