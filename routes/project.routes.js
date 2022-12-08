@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const Project = require("../models/Project.model");
+const Task = require("../models/Task.model") 
 
 /////////// GET ALL PROJECT ON INDEX //////////////
 
@@ -37,14 +38,24 @@ router.get('/projects/', (req, res, next) => {
   router.post("/projects/:id/delete", (req, res, next)=>{
     const id = req.params.id
     console.log(id)
-    Project.findByIdAndRemove(id)
-    .then((deletedProject) =>{
-        console.log("MADE IT", deletedProject)
-        res.status(200).json(deletedProject)
+
+    Project.findById(id)
+    .then((projectFound) => {
+      console.log("project: ", projectFound)
+      projectFound.tasks.forEach(task => {
+       Task.findByIdAndRemove(task.toString())
+       .then((deletedTasks) => {})
+      })
+      Project.findByIdAndRemove(id)
+      .then((deletedProject) =>{
+          console.log("MADE IT", deletedProject)
+          res.status(200).json(deletedProject)
+      })
+      .catch((err) =>{
+          console.log(err)
+      }) 
     })
-    .catch((err) =>{
-        console.log(err)
-    }) 
+
 
 })
 
