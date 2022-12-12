@@ -11,6 +11,7 @@ const taskSchema = new Schema(
     dueDate: Date,
     project: { type: Schema.Types.ObjectId, ref: "Project" },
     important: Boolean,
+    checkTask: Boolean,
     createdBy: { type: Schema.Types.ObjectId, ref: "User" },
   },
   {

@@ -9,6 +9,9 @@ require("./db");
 // https://www.npmjs.com/package/express
 const express = require("express");
 
+// Require Confetti npm
+const canvasConfetti = require("canvas-confetti")
+
 const app = express();
 
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
