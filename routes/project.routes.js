@@ -2,13 +2,23 @@ const express = require("express");
 const router = express.Router();
 
 const Project = require("../models/Project.model");
-const Task = require("../models/Task.model") 
+const Task = require("../models/Task.model"); 
+const User = require("../models/User.model");
 
 /////////// GET ALL PROJECT ON INDEX //////////////
 
-router.get('/projects/', (req, res, next) => {
-    Project.find()
-      .populate('tasks')
+router.get('/users/:id/projects/', (req, res, next) => {
+  const id = req.params.id
+  
+    User.findById(id)
+      .populate({
+        path: 'projects',
+
+        populate: {
+          path: 'tasks',
+          model: Task
+        }
+      })
       .then(allProjects => res.json(allProjects))
       .catch(err => res.json(err));
 
@@ -61,16 +71,18 @@ router.get('/projects/', (req, res, next) => {
 
   /////////// UPDATE PROJECT TASKS //////////////
 
-router.post("/projects/sort", (req,res,next) => {
+router.post("/users/:id/projects", (req,res,next) => {
+  const id = req.params.id
+
   const {array} = req.body
-  console.log("array",array)
+  User.findByIdAndUpdate(id, {projects: array})
+/*   console.log("array",array)
   Project.deleteMany().then((result)=> {
     console.log("result!!!!",result)
     Project.create(array).then((result)=> console.log(result))
-  })
-
-  
-
+  }) */
+  .then(user => {res.status(201)})
+  .catch(err => console.log(err))
 })
 
 
