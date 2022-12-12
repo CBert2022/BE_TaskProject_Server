@@ -34,6 +34,21 @@ router.post("/tasks", (req, res, next) => {
       .catch((err) => res.json(err));
   });
 
+  //////////// E D I T / C H E C K  T A S K ///////////
+
+  router.put('/taskss/:taskId', (req, res, next) => {
+    const id = req.params.id
+   
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      res.status(400).json({ message: 'Specified id is not valid' });
+      return;
+    }
+   
+    Task.findByIdAndUpdate(id, req.body, { new: true })
+      .then((updatedProject) => res.json(updatedProject))
+      .catch(error => res.json(error));
+  });
+
   //////////// D E L E T E  T A S K ///////////
 
   router.post("/tasks/:id/delete", (req, res, next)=>{
