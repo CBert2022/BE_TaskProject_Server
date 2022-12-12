@@ -9,8 +9,22 @@ const Project = require("../models/Project.model");
 
 // Get route ==> render all tasks
 
-  router.get('/tasks', (req, res, next) => {
-    Task.find()
+router.get('/tasks', (req, res, next) => {
+
+  Task.find()
+    .then(allTasks => res.json(allTasks))
+    .catch(err => res.json(err));
+});
+
+
+//////////// S P E C I F I C   T A S K ///////////
+
+// Get route ==> render specific tasks
+
+  router.get('/tasks/:id', (req, res, next) => {
+    const id = mongoose.Types.ObjectId(req.params.id)
+
+    Task.find({project: id})
       .then(allTasks => res.json(allTasks))
       .catch(err => res.json(err));
 
