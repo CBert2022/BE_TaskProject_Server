@@ -59,6 +59,21 @@ router.get('/projects/', (req, res, next) => {
 
 })
 
+  /////////// UPDATE PROJECT TASKS //////////////
+
+router.post("/projects/sort", (req,res,next) => {
+  const {array} = req.body
+  console.log("array",array)
+  Project.deleteMany().then((result)=> {
+    console.log("result!!!!",result)
+    Project.create(array).then((result)=> console.log(result))
+  })
+
+  
+
+})
+
+
    
 
 
