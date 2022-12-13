@@ -50,7 +50,7 @@ router.post("/tasks", (req, res, next) => {
 
   //////////// E D I T / C H E C K  T A S K ///////////
 
-  router.put('/taskss/:taskId', (req, res, next) => {
+  router.put('/tasks/:taskId', (req, res, next) => {
     const id = req.params.id
    
     if (!mongoose.Types.ObjectId.isValid(id)) {
