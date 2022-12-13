@@ -17,7 +17,7 @@ router.get('/tasks', (req, res, next) => {
 });
 
 
-//////////// S P E C I F I C   T A S K ///////////
+//////////// S P E C I F I C   T A S K S ///////////
 
 // Get route ==> render specific tasks
 
@@ -29,6 +29,19 @@ router.get('/tasks', (req, res, next) => {
       .catch(err => res.json(err));
 
   });
+
+//////////// S P E C I F I C   T A S K  ///////////
+
+router.get('/task/:id', (req, res, next) => {
+  const id = mongoose.Types.ObjectId(req.params.id)
+
+  Task.find({task: id})
+    .then(task => res.json(task))
+    .catch(err => res.json(err));
+
+});
+
+
 
   //////////// N E W   T A S K ///////////
 
@@ -50,8 +63,9 @@ router.post("/tasks", (req, res, next) => {
 
   //////////// E D I T / C H E C K  T A S K ///////////
 
-  router.put('/tasks/:taskId', (req, res, next) => {
-    const id = req.params.id
+  router.put('/tasks/:taskId/edit', (req, res, next) => {
+    console.log(req.params)
+    const id = req.params.taskId
    
     if (!mongoose.Types.ObjectId.isValid(id)) {
       res.status(400).json({ message: 'Specified id is not valid' });
