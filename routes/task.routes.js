@@ -50,12 +50,12 @@ router.post("/tasks", (req, res, next) => {
 
   //////////// E D I T / C H E C K  T A S K ///////////
 
-  router.put('/tasks/:taskId', (req, res, next) => {
-    const id = req.params.id
-   
+  router.put('/tasks/:taskId/edit', (req, res, next) => {
+    const id = req.params.taskId
+   console.log(id)
     if (!mongoose.Types.ObjectId.isValid(id)) {
       res.status(400).json({ message: 'Specified id is not valid' });
-      return;
+      return "errorrrr";
     }
    
     Task.findByIdAndUpdate(id, req.body, { new: true })
