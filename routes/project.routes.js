@@ -25,6 +25,19 @@ router.get('/projects/', (req, res, next) => {
 //         .catch((err) => res.json(err));
 //     });
 
+/* router.post("/projects", (req, res, next) => {  
+  const { title, description, createdBy } = req.body;
+  console.log("HEY", req.body)
+  return Project.create({ title, description,createdBy,tasks: [] })
+    .then((newProject) => {
+      return User.findByIdAndUpdate(createdBy, {
+        $push: { projects: newProject._id },
+      });
+    })
+    .then((response) => {console.log("response", response);res.json(response)})
+    .catch((err) => res.json(err));
+}); */
+
     router.post('/projects', (req, res, next) => {
       const { title, description, createdBy } = req.body;
      
@@ -59,22 +72,23 @@ router.get('/projects/', (req, res, next) => {
 
 })
 
-  /////////// UPDATE PROJECT TASKS //////////////
+  /////////// UPDATE PROJECTS POSITION //////////////
 
 router.post("/projects/sort", (req,res,next) => {
   const {array} = req.body
-  console.log("array",array)
-  Project.deleteMany().then((result)=> {
+  
+  console.log("MATCHES",array)
+
+/*   Project.find({$set: {projects: []}}, {new: true}).then((result)=> {
     console.log("result!!!!",result)
-    Project.create(array).then((result)=> console.log(result))
-  })
+  }) */
 
   
+
 
 })
 
 
-   
-
-
-module.exports = router;
+  
+ 
+module.exports = router; 

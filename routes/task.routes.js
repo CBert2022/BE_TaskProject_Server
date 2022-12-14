@@ -24,7 +24,7 @@ router.get('/tasks', (req, res, next) => {
   router.get('/tasks/:id', (req, res, next) => {
     const id = mongoose.Types.ObjectId(req.params.id)
 
-    Task.find({project: id})
+    Project.findById(id).populate("tasks")
       .then(allTasks => res.json(allTasks))
       .catch(err => res.json(err));
 
@@ -75,6 +75,30 @@ router.post("/tasks", (req, res, next) => {
     .catch((err) =>{
         console.log(err)
     }) 
+
+})
+
+
+  /////////// UPDATE PROJECT TASKS //////////////
+
+  
+router.post("/tasks/:id/sort", (req,res,next) => {
+  const id = req.params.id
+  const {array} = req.body
+  
+  console.log("array",array)
+const ids = []
+  array.forEach((id)=> {
+    ids.push(id)
+  })
+
+  Project.findByIdAndUpdate(id, {$set: {tasks: []}}, {new: true}).then((result)=> {
+    console.log("result!!!!",result)
+  }).then(()=> {
+    Project.findByIdAndUpdate(id, {$set: {tasks: ids}}, {new: true}).then((result)=> {
+      console.log("result!!!!",result)
+    })
+  })
 
 })
 
