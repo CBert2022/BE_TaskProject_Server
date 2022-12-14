@@ -8,7 +8,7 @@ title: {
 },
 description: String,
 createdBy: { type: Schema.Types.ObjectId, ref: "User" },
-tasks: [{ type: Schema.Types.ObjectId, ref: "Task" }],
+tasks: {type: [{type: Schema.Types.ObjectId, ref: "Task"}] ,index: true},
 position: Number,
 });
 

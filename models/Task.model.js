@@ -16,7 +16,8 @@ const taskSchema = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
+  { index: true}
 );
 
 const Task = model("Task", taskSchema);
