@@ -11,8 +11,6 @@ router.get('/projects/', (req, res, next) => {
       .populate('tasks')
       .then(allProjects => res.json(allProjects))
       .catch(err => res.json(err));
-
-
   });
 
   /////////// CREATE A PROJECT ON INDEX //////////////
