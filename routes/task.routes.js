@@ -36,9 +36,9 @@ router.get('/tasks', (req, res, next) => {
 router.post("/tasks", (req, res, next) => {
     console.log(req.body)
     
-    const { title, description, dueDate, projectId, important } = req.body;
+    const { title, description, dueDate, projectId, important, createdBy } = req.body;
   
-    Task.create({ title, description, dueDate, important, project: projectId })
+    Task.create({ title, description, dueDate, important, project: projectId, createdBy })
       .then((newTask) => {
         return Project.findByIdAndUpdate(projectId, {
           $push: { tasks: newTask._id },
