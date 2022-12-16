@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const mongoose = require('mongoose');
 
-const User = require("../models/User.model");
 const Task = require("../models/Task.model") 
 const Project = require("../models/Project.model");
 
@@ -33,9 +32,7 @@ router.get('/tasks', (req, res, next) => {
   //////////// N E W   T A S K ///////////
 
 // Post route ==> create new task
-router.post("/tasks", (req, res, next) => {
-    console.log(req.body)
-    
+router.post("/tasks", (req, res, next) => {    
     const { title, description, dueDate, projectId, important, createdBy } = req.body;
   
     Task.create({ title, description, dueDate, important, project: projectId, createdBy })
@@ -56,7 +53,6 @@ router.post("/tasks", (req, res, next) => {
       res.status(400).json({ message: 'Specified id is not valid' });
       return "errorrrr";
     }
-   console.log(req.body)
     Task.findByIdAndUpdate(id, req.body, { new: true })
       .then((updatedProject) => res.json(updatedProject))
       .catch(error => res.json(error));
@@ -66,10 +62,8 @@ router.post("/tasks", (req, res, next) => {
 
   router.post("/tasks/:id/delete", (req, res, next)=>{
     const id = req.params.id
-    console.log(id)
     Task.findByIdAndRemove(id)
     .then((deletedTask) =>{
-        console.log("MADE IT", deletedTask)
         res.status(200).json(deletedTask)
     })
     .catch((err) =>{
@@ -86,20 +80,15 @@ router.post("/tasks/:id/sort", (req,res,next) => {
   const id = req.params.id
   const {array} = req.body
   
-  console.log("array",array)
 const ids = []
   array.forEach((id)=> {
     ids.push(id)
   })
 
-  Project.findByIdAndUpdate(id, {$set: {tasks: []}}, {new: true}).then((result)=> {
-    console.log("result!!!!",result)
-  }).then(()=> {
-    Project.findByIdAndUpdate(id, {$set: {tasks: ids}}, {new: true}).then((result)=> {
-      console.log("result!!!!",result)
-    })
+  Project.findByIdAndUpdate(id, {$set: {tasks: []}}, {new: true})
+  .then(()=> {
+    Project.findByIdAndUpdate(id, {$set: {tasks: ids}}, {new: true})
   })
-
 })
 
   module.exports = router;
