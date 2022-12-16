@@ -27,18 +27,15 @@ router.get('/projects/', (req, res, next) => {
 
   router.post("/projects/:id/delete", (req, res, next)=>{
     const id = req.params.id
-    console.log(id)
 
     Project.findById(id)
     .then((projectFound) => {
-      console.log("project: ", projectFound)
       projectFound.tasks.forEach(task => {
        Task.findByIdAndRemove(task.toString())
        .then((deletedTasks) => {})
       })
       Project.findByIdAndRemove(id)
       .then((deletedProject) =>{
-          console.log("MADE IT", deletedProject)
           res.status(200).json(deletedProject)
       })
       .catch((err) =>{
@@ -49,16 +46,5 @@ router.get('/projects/', (req, res, next) => {
 
 })
 
-  /////////// UPDATE PROJECTS POSITION //////////////
-
-router.post("/projects/sort", (req,res,next) => {
-  const {array} = req.body
-  
-  console.log("MATCHES",array)
-
-})
-
-
-  
  
 module.exports = router; 
