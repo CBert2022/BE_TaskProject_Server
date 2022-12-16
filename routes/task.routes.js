@@ -102,7 +102,4 @@ const ids = []
 
 })
 
-/* console.log("this is ptoject: ", projectId)
-console.log("this is book creator: ", response.creator._id.toString() ) */
-
   module.exports = router;

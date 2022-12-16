@@ -17,27 +17,6 @@ router.get('/projects/', (req, res, next) => {
 
   /////////// CREATE A PROJECT ON INDEX //////////////
 
-// router.post("/projects", (req, res, next) => {
-//     const { title, description} = req.body;
-//     console.log(req.body);
-//     Project.create({ title, description })
-//         .then((response) => res.json(response))
-//         .catch((err) => res.json(err));
-//     });
-
-/* router.post("/projects", (req, res, next) => {  
-  const { title, description, createdBy } = req.body;
-  console.log("HEY", req.body)
-  return Project.create({ title, description,createdBy,tasks: [] })
-    .then((newProject) => {
-      return User.findByIdAndUpdate(createdBy, {
-        $push: { projects: newProject._id },
-      });
-    })
-    .then((response) => {console.log("response", response);res.json(response)})
-    .catch((err) => res.json(err));
-}); */
-
     router.post('/projects', (req, res, next) => {
       const { title, description, createdBy } = req.body;
      
@@ -78,13 +57,6 @@ router.post("/projects/sort", (req,res,next) => {
   const {array} = req.body
   
   console.log("MATCHES",array)
-
-/*   Project.find({$set: {projects: []}}, {new: true}).then((result)=> {
-    console.log("result!!!!",result)
-  }) */
-
-  
-
 
 })
 
